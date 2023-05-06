@@ -33,13 +33,19 @@ export const StockList = () => {
                         })
                     })
                 )
-                
+             
                 const data = responses.map((response) => {
                     return {
                         data: response.data,
                         symbol: response.config.params.symbol
                     }
                 })
+
+                    // const responseP2 = await finnhub.get('/stock/profile2', {
+                    //     params: {
+                    //         symbol:symbol
+                    //     }  
+                    // })
 
                 // Ask if response is mounted
                 if(isMounted) {

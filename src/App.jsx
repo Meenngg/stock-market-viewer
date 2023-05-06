@@ -9,6 +9,9 @@ function App() {
   return (
     <>
       <div className="App">
+        <div className='text-gray-100 text-center p-2 bg-black'>
+          Under Development
+        </div>
         <WatchListContextProvider>
         <Router>
           <Routes>
