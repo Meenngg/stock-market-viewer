@@ -54,8 +54,8 @@ export const SearchPage = () => {
 
     return (
         <div>
-            <div className=" mx-auto">
-                <input type="text" id="searchInput" placeholder="Search" autoComplete="off" onChange={(e) => {setSearch(e.target.value)}} />
+            <div className="flex justify-end">
+                <input className="border rounded-md pl-2" type="text" id="searchInput" placeholder="Search" autoComplete="off" onChange={(e) => {setSearch(e.target.value)}} />
                 {renderDropdown()}
                 
             </div>

@@ -4,6 +4,8 @@ import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io"
 import { WatchListContext } from "../context/WatchlistContext"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { BsFillBarChartFill, BsTrashFill } from 'react-icons/bs'
+
 
 export const StockList = () => {
     const [stocks, setStocks] = useState([])
@@ -56,46 +58,39 @@ export const StockList = () => {
     }, [watchList]);
 
     return (
-        <div className="flex items-center flex-col">
-            <h4>Stock List</h4>
-            <table className="w-9/12">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Last Price</th>
-                        <th>Change</th>
-                        <th>Change %</th>
-                        <th>High</th>
-                        <th>Low</th>
-                        <th>Open</th>
-                        <th>PClose</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        stocks.map((stock) => {
-                            return <tr key={stock.symbol}>
-                                <th>{stock.symbol}</th>
-                                <td>{stock.data.c}</td>
-                                <td className={stock.data.d > 0 ? "text-green-700 flex justify-center items-center" : "text-red-700 flex justify-center items-center"}>
-                                    {stock.data.d} {renderIcon(stock.data.d)}
-                                </td>
-                                <td className={stock.data.dp > 0 ? "text-green-700" : "text-red-700"}>
-                                    {stock.data.dp} {renderIcon(stock.data.dp)}
-                                </td>
-                                <td>{stock.data.h}</td>
-                                <td>{stock.data.l}</td>
-                                <td>{stock.data.o}</td>
-                                <td>{stock.data.pc}</td>
-                                <td>
-                                    <button  onClick={() => deleteStock(stock.symbol)}>Remove</button>
-                                    <button className="pl-1" onClick={() => handleStockSelect(stock.symbol)}>Details</button>
-                                </td>
-                            </tr>
-                        })
-                    }
-                </tbody>
-            </table>
+        <div>
+
+            <div className="grid grid-cols-3 justify-between gap-5 my-2">
+                {
+                    stocks.map((stock) => {
+                        return (
+                            <section className="h-40 border rounded-sm flex" key={stock.symbol}>
+                            <div className="bg-gray-100 w-1/4 flex items-center justify-center text-sm text-center">
+                                {/* <img src={} /> */}
+                                <span>{stock.symbol}</span>
+                            </div>
+                            <div className="bg-gray-200 w-9/12 py-2 px-4 flex flex-col justify-between">
+                                <div className="flex justify-end gap-2">
+                                    <button onClick={() => handleStockSelect(stock.symbol)}><BsFillBarChartFill color="gray" size={18} /></button>
+                                    <button onClick={() => deleteStock(stock.symbol)}><BsTrashFill color="gray" size={18} /></button>
+                                </div>
+                                <div className=" pb-1 border-b border-gray-400">
+                                    <ul>
+                                        <li>High: {stock.data.h}</li>
+                                        <li>Low: {stock.data.l}</li>
+                                        <li>Change: {stock.data.dp}</li>
+                                    </ul>
+                                </div>
+                                <div className="flex justify-between items-center font-semibold">
+                                    <span className="text-xl">Price: </span>
+                                    <span className="text-2xl">{stock.data.c}</span>
+                                </div>
+                            </div>
+                        </section>
+                        )
+                    })
+                }
+                    </div>
         </div>
     ) 
 }
